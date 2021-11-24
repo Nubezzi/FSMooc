@@ -1,0 +1,11 @@
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: HTTP 201
+
+
+note over selain:
+spa.js lisää luodun muistiinpanon olemassa olevalle sivuille
+eikä pyydä lataamaan sivua uudelleen
+end note
+note over palvelin:
+palvelin lisää saadun datan JSON tiedostoon
+end note
