@@ -34,38 +34,40 @@ const Statistics = (props) => {
     )
   }
   return(
-    <body>
+    <div>
       <table>
-        <tr>
-          <th>type</th>
-          <th>grade</th>
-        </tr>
-        <tr>
-          <td>good</td>
-          <td>{props.good}</td>
-        </tr>
-        <tr>
-          <td>neutral</td>
-          <td>{props.neutral}</td>
-        </tr>
-        <tr>
-          <td>bad</td>
-          <td>{props.bad}</td>
-        </tr>
-        <tr>
-          <td>all</td>
-          <td>{props.bad+ props.good + props.neutral}</td>
-        </tr>
-        <tr>
-          <td>average</td>
-          <td>{(props.good+(props.bad*(-1)))/(props.good+props.bad+props.neutral)}</td>
-        </tr>
-        <tr>
-          <td>positive</td>
-          <td>{(props.good/(props.bad+props.good+props.neutral))*100} %</td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>type</th>
+            <th>grade</th>
+          </tr>
+          <tr>
+            <td>good</td>
+            <td>{props.good}</td>
+          </tr>
+          <tr>
+            <td>neutral</td>
+            <td>{props.neutral}</td>
+          </tr>
+          <tr>
+            <td>bad</td>
+            <td>{props.bad}</td>
+          </tr>
+          <tr>
+            <td>all</td>
+            <td>{props.bad+ props.good + props.neutral}</td>
+          </tr>
+          <tr>
+            <td>average</td>
+            <td>{(props.good+(props.bad*(-1)))/(props.good+props.bad+props.neutral)}</td>
+          </tr>
+          <tr>
+            <td>positive</td>
+            <td>{(props.good/(props.bad+props.good+props.neutral))*100} %</td>
+          </tr>
+        </tbody>
       </table>
-    </body>
+    </div>
 
     /*
     <div>
