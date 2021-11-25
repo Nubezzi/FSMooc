@@ -16,15 +16,10 @@ const Button = (props) => {
   )
 }
 
-const increment = (name, operation) => {
-  console.log("incremented: ", name)
-  operation(name + 1)
-}
-
 const Stat = (props) => {
   return(
     <div>
-    <p>{props.name} {props.amount}</p>
+    <p>{props.name} {props.amount} {props.other}</p>
   </div>
   )
 }
@@ -34,6 +29,11 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+
+  const increment = (name, operation) => {
+    //console.log("incremented: ", name)
+    operation(name + 1)
+  }
 
   return (
     <div>
@@ -45,6 +45,9 @@ const App = () => {
       <Stat name="good" amount={good} />
       <Stat name="neutral" amount={neutral} />
       <Stat name="bad" amount={bad} />
+      <Stat name="all" amount={bad+ good + neutral} />
+      <Stat name="average" amount={(good+(bad*(-1)))/(good+bad+neutral)} />
+      <Stat name="positive" amount={(good/(bad+good+neutral))*100} other="%"/>
     </div>
   )
 }
