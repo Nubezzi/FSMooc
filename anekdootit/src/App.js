@@ -8,6 +8,15 @@ const Button = (props) => {
   )
 }
 
+const Header = (props) => {
+  return(
+    <div>
+      <h1>{props.name}</h1>
+    </div>
+  )
+}
+
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -30,28 +39,35 @@ const App = () => {
     }else{
       setSelected(jtn)
     }
-    console.log(jtn)
+    //console.log(jtn)
   }
 
   const vote = (i) => {
-    const copy = {...points}
+    const copy = [...points]
     copy[i] += 1
     setPoints(copy)
-    console.log("voted", i)
+    //console.log(points)
   }
 
   const rand = () => {
     return(
-      Math.floor(Math.random() * anecdotes.length)
+      Math.floor(Math.random() * Math.floor(anecdotes.length))
     )
   }
 
+  const mostVotes = Math.max(...points)
+  const bestAnecdote = anecdotes[points.indexOf(mostVotes)]
+
   return (
     <div>
+      <Header name="Anecdote of the day" />
       {anecdotes[selected]}
       <li>has {points[selected]} votes </li>
       <Button handleClick={() => nextan()} buttonName="next" />
       <Button handleClick={() => vote(selected)} buttonName="vote" />
+      <Header name="Anecdote wiht most votes" />
+      {bestAnecdote}
+      <li>has {mostVotes} votes </li>
     </div>
   )
 }
