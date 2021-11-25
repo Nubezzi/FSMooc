@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "osa1",
+			"path": "..\\.."
+		},
+		{
+			"name": "FSMooc",
+			"path": "..\\..\\..\\..\\..\\..\\Downloads\\FSMooc"
+		},
+		{
+			"name": "osa0",
+			"path": "..\\..\\..\\osa0"
+		}
+	],
+	"settings": {}
+}
