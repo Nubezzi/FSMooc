@@ -16,13 +16,14 @@ const Button = (props) => {
   )
 }
 
-const StatisticsLine = (props) => {
+/*const StatisticsLine = (props) => {
   return(
-    <div>
-    <p>{props.name} {props.amount} {props.other}</p>
-  </div>
+    <body>
+      <td>{props.name}</td>
+      <td>{props.amount} {props.other}</td>
+    </body>
   )
-}
+}*/
 
 const Statistics = (props) => {
   if(props.good === 0 && props.neutral === 0 && props.bad === 0){
@@ -33,6 +34,40 @@ const Statistics = (props) => {
     )
   }
   return(
+    <body>
+      <table>
+        <tr>
+          <th>type</th>
+          <th>grade</th>
+        </tr>
+        <tr>
+          <td>good</td>
+          <td>{props.good}</td>
+        </tr>
+        <tr>
+          <td>neutral</td>
+          <td>{props.neutral}</td>
+        </tr>
+        <tr>
+          <td>bad</td>
+          <td>{props.bad}</td>
+        </tr>
+        <tr>
+          <td>all</td>
+          <td>{props.bad+ props.good + props.neutral}</td>
+        </tr>
+        <tr>
+          <td>average</td>
+          <td>{(props.good+(props.bad*(-1)))/(props.good+props.bad+props.neutral)}</td>
+        </tr>
+        <tr>
+          <td>positive</td>
+          <td>{(props.good/(props.bad+props.good+props.neutral))*100} %</td>
+        </tr>
+      </table>
+    </body>
+
+    /*
     <div>
       <StatisticsLine name="good" amount={props.good} />
       <StatisticsLine name="neutral" amount={props.neutral} />
@@ -41,6 +76,7 @@ const Statistics = (props) => {
       <StatisticsLine name="average" amount={(props.good+(props.bad*(-1)))/(props.good+props.bad+props.neutral)} />
       <StatisticsLine name="positive" amount={(props.good/(props.bad+props.good+props.neutral))*100} other="%"/>
     </div>
+    */
   )
 }
 
