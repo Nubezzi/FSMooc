@@ -24,6 +24,26 @@ const Stat = (props) => {
   )
 }
 
+const Statistics = (props) => {
+  if(props.good === 0 && props.neutral === 0 && props.bad === 0){
+    return(
+      <div>
+        <p>No feedback given yet</p>
+      </div>
+    )
+  }
+  return(
+    <div>
+      <Stat name="good" amount={props.good} />
+      <Stat name="neutral" amount={props.neutral} />
+      <Stat name="bad" amount={props.bad} />
+      <Stat name="all" amount={props.bad+ props.good + props.neutral} />
+      <Stat name="average" amount={(props.good+(props.bad*(-1)))/(props.good+props.bad+props.neutral)} />
+      <Stat name="positive" amount={(props.good/(props.bad+props.good+props.neutral))*100} other="%"/>
+    </div>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -42,12 +62,7 @@ const App = () => {
       <Button handleClick={() => increment(neutral, setNeutral)} buttonName="neutral" />
       <Button handleClick={() => increment(bad, setBad)} buttonName="bad" />
       <Header name="stats" />
-      <Stat name="good" amount={good} />
-      <Stat name="neutral" amount={neutral} />
-      <Stat name="bad" amount={bad} />
-      <Stat name="all" amount={bad+ good + neutral} />
-      <Stat name="average" amount={(good+(bad*(-1)))/(good+bad+neutral)} />
-      <Stat name="positive" amount={(good/(bad+good+neutral))*100} other="%"/>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
