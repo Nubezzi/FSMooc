@@ -91,7 +91,11 @@ const App = () => {
     }
 
     if(persons.filter(per => per.name === newName).length > 0){
-      alert(`${newName} is already on the contactbook`)
+      if (window.confirm(`${newName} is already in your contacts. Do you want to update their number?`)) {
+        updatePerson(newName, personObject);
+        setNewNumber('')
+        setNewName('')
+      }
     }else {
       storage
       .create(personObject)
@@ -107,6 +111,17 @@ const App = () => {
     if (window.confirm(`Do you really want to remove ${person.name}?`)) {
       deletePerson(person.id);
     }
+  }
+
+  const updatePerson = (name, personObject) => {
+    const current = persons.find(x => x.name === name)
+    console.log("updated id: ", current.id)
+    storage
+      .update(current.id, personObject)
+        .then(returnedValue => {
+        setPersons(persons.filter(x => x != current).concat(returnedValue))
+        console.log(returnedValue)
+      })
   }
 
   const deletePerson = (id) => {
