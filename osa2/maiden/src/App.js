@@ -85,7 +85,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Sivu</h1>
+      <h1>Countries of the World</h1>
 
       <div>
       <Filter 

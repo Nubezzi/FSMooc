@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import storage from './services/storage'
 
 const Filter = ({value, change}) => {
   return (
@@ -59,7 +60,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
-  const hook = () => {
+  /*const hook = () => {
     console.log('effect')
     axios
       .get('http://localhost:3001/persons')
@@ -67,13 +68,20 @@ const App = () => {
         console.log('promise fulfilled')
         setPersons(response.data)
       })
-  }
+  }*/
   
-  useEffect(hook, [])
+  useEffect(() => {
+    storage
+      .getAll()
+        .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+  }, [])
+  //console.log('render', persons.length, 'storage')
 
   const addPerson = (event) => {
     event.preventDefault()
-    const noteObject = {
+    const personObject = {
       name: newName,
       number: newNumber,
     }
@@ -81,9 +89,13 @@ const App = () => {
     if(persons.filter(per => per.name === newName).length > 0){
       alert(`${newName} is already on the contactbook`)
     }else {
-      setPersons(persons.concat(noteObject))
-      setNewName('')
-      setNewNumber('')
+      storage
+      .create(personObject)
+        .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewNumber('')
+        setNewName('')
+      })
     }
   }
 
