@@ -2,14 +2,16 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '0501234567' }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
     const noteObject = {
       name: newName,
+      number: newNumber,
       //date: new Date().toISOString(),
       //id: persons.length + 1,
     }
@@ -19,6 +21,7 @@ const App = () => {
     }else {
       setPersons(persons.concat(noteObject))
       setNewName('')
+      setNewNumber('')
     }
   
     
@@ -26,13 +29,17 @@ const App = () => {
 
   const Person = ({ person }) => {
     return (
-      <p>{person.name}</p>
+      <p>{person.name}, {person.number}</p>
     )
   }
 
-  const handleChange = (event) => {
+  const handleChangeName = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+  }
+  const handleChangeNum = (event) => {
+    console.log(event.target.value)
+    setNewNumber(event.target.value)
   }
 
   return (
@@ -42,10 +49,16 @@ const App = () => {
         <div>
           name: <input
             value={newName}
-            onChange={handleChange}
+            onChange={handleChangeName}
             />
         </div>
-            <button type="submit">save</button>
+        <div>
+          number: <input 
+            value={newNumber}
+            onChange={handleChangeNum}
+          />
+        </div>
+            <button type="submit">add</button>
       </form>
       
       <h2>Numbers</h2>
