@@ -13,6 +13,7 @@ const Filter = ({value, change}) => {
   )
 }
 
+
 const Adder = ({addPerson, newName, handleChangeName, newNumber, handleChangeNum}) => {
   return (
     <form onSubmit={addPerson}>
@@ -33,19 +34,22 @@ const Adder = ({addPerson, newName, handleChangeName, newNumber, handleChangeNum
   )
 }
 
-const ContactBook = ({ whatToShow }) => {
+const ContactBook = ({ whatToShow, deleter }) => {
   return (
     <ul>
         {whatToShow.map(person =>
-          <Person key={person.name} person={person}/>
+          <Person key={person.name} person={person} deleter={deleter}/> 
         )}
     </ul>
   )
 }
 
-const Person = ({ person }) => {
+
+const Person = ({ person, deleter }) => {
   return (
-    <p>{person.name}, {person.number}</p>
+    <div>
+      <b>{person.name}, {person.number}</b> <button type="submit" onClick={() => { deleter(person) }}>delete contact</button>
+    </div>
   )
 }
 
@@ -99,7 +103,23 @@ const App = () => {
     }
   }
 
-  
+  const deleter = (person) => {
+    if (window.confirm(`Do you really want to remove ${person.name}?`)) {
+      deletePerson(person.id);
+    }
+  }
+
+  const deletePerson = (id) => {
+    console.log("deleted id: ", id)
+    const thisper = persons.find(x => x.id === id)
+    const next = { ...thisper}
+    storage
+      .del(id, next)
+        .then(returnedValue => {
+        setPersons(persons.filter(x => x.id != id))
+        console.log(returnedValue)
+      })
+  }
 
   const handleChangeName = (event) => {
     //console.log(event.target.value)
@@ -136,7 +156,7 @@ const App = () => {
       
       <h2>Numbers</h2>
       <ul>
-        <ContactBook whatToShow={whatToShow}/>
+        <ContactBook whatToShow={whatToShow} deleter={deleter}/>
       </ul>
     </div>
   )
