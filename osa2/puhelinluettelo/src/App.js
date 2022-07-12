@@ -1,6 +1,19 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import storage from './services/storage'
+import './index.css'
+
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="error">
+      {message}
+    </div>
+  )
+}
 
 const Filter = ({value, change}) => {
   return (
@@ -63,7 +76,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
-
+  const [errorMessage, setErrorMessage] = useState(null)
+  
   /*const hook = () => {
     console.log('effect')
     axios
@@ -103,6 +117,12 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewNumber('')
         setNewName('')
+        setErrorMessage(
+          `Added ${newName} successfully!`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
     }
   }
@@ -121,6 +141,12 @@ const App = () => {
         .then(returnedValue => {
         setPersons(persons.filter(x => x != current).concat(returnedValue))
         console.log(returnedValue)
+        setErrorMessage(
+          `Updated ${name} successfully!`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
   }
 
@@ -133,6 +159,12 @@ const App = () => {
         .then(returnedValue => {
         setPersons(persons.filter(x => x.id != id))
         console.log(returnedValue)
+        setErrorMessage(
+          `deleted ${thisper.name} successfully!`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
   }
 
@@ -156,6 +188,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
+
       <Filter 
         value={newSearch}
         change={handleChangeSearch}
