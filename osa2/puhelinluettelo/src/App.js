@@ -3,13 +3,13 @@ import axios from 'axios'
 import storage from './services/storage'
 import './index.css'
 
-const Notification = ({ message }) => {
+const Notification = ({ message, state }) => {
   if (message === null) {
     return null
   }
 
   return (
-    <div className="error">
+    <div className={state}>
       {message}
     </div>
   )
@@ -77,6 +77,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessageState, setErrorMessageState] = useState("success")
   
   /*const hook = () => {
     console.log('effect')
@@ -148,6 +149,18 @@ const App = () => {
           setErrorMessage(null)
         }, 5000)
       })
+      .catch(error => {
+        setErrorMessageState("error")
+        setErrorMessage(
+          `Seems that ${name} is already deleted on another instance of the service.`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+          setErrorMessageState("success")
+        }, 5000)
+        setPersons(persons.filter(x => x.name != name))
+      })
+      
   }
 
   const deletePerson = (id) => {
@@ -188,7 +201,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={errorMessage} />
+      <Notification message={errorMessage} state={errorMessageState} />
 
       <Filter 
         value={newSearch}
